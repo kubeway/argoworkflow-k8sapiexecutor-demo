@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exec-test
+spec:
+  replicas: 150
+  selector:
+    matchLabels:
+      app: exec-test
+  template:
+    metadata:
+      labels:
+        app: exec-test
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: signal
+          image: registry.cn-huhehaote.aliyuncs.com/kubeway/signal-helloworld:2021-09-09
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SIGNAL_DEBUG_MODE
+              value: "immediately"
